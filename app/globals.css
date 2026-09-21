@@ -1,0 +1,132 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f2f0e8;
+  --ink: #16150f;
+  --soft: #6d6a5c;
+  --rule: #d5d1c2;
+  /* Brand green. Dark text on it, which clears 9:1. */
+  --marker: #30d158;
+  --marker-text: #16150f;
+  --highlight: #30d158;
+  /* Tail colour for the display heading's fade: ink drifting toward the green. */
+  --ink-fade: #35704a;
+  color-scheme: light;
+}
+
+/* Light is the default; dark is opt-in via the toggle, which sets this
+   attribute (and an inline script in the layout re-applies it before paint). */
+:root[data-theme="dark"] {
+  --paper: #131311;
+  --ink: #eeece1;
+  --soft: #8b8878;
+  --rule: #2e2d28;
+  --marker: #30d158;
+  --marker-text: #16150f;
+  /* Translucent here, so ink-coloured text stays readable through it. */
+  --highlight: rgb(48 209 88 / 0.28);
+  --ink-fade: #7fc99a;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-rule: var(--rule);
+  --color-marker: var(--marker);
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-feature-settings: "cv05" 1; /* Inter's single-storey l, easier on digits */
+}
+
+::selection {
+  background: var(--marker);
+  color: var(--marker-text);
+}
+
+/* Small letterspaced caps, used for every field label on the page. */
+.label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--soft);
+}
+
+/* A barely-there warm fade across the display heading. */
+.ink-fade {
+  color: var(--ink);
+}
+
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .ink-fade {
+    background-image: linear-gradient(135deg, var(--ink) 10%, var(--ink-fade) 95%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Highlighter pen, sitting on the lower half of the text like a real marker. */
+.marked {
+  background-image: linear-gradient(transparent 58%, var(--highlight) 58%);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+/* ---- Ruler ------------------------------------------------------------ */
+
+/* The visible ruler is drawn in the markup; this range input sits invisibly
+   on top of it so dragging, clicking and arrow keys all work for free. */
+.ruler-input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: ew-resize;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+}
+
+/* A 1px thumb keeps value-to-pixel mapping perfectly linear, so the drawn
+   ticks line up with the input's own positions. */
+.ruler-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 1px;
+  height: 100%;
+}
+
+.ruler-input::-moz-range-thumb {
+  width: 1px;
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.ruler:has(.ruler-input:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
