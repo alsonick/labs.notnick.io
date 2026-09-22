@@ -60,6 +60,8 @@ export default function ThemeToggle() {
   }
 
   const goingDark = theme === "light";
+  const iconClass =
+    "size-3.5 transition-transform group-hover:scale-125 group-focus-visible:scale-125";
 
   return (
     <button
@@ -68,9 +70,13 @@ export default function ThemeToggle() {
       aria-label={`Switch to ${goingDark ? "dark" : "light"} theme`}
       aria-pressed={theme === "dark"}
       title={`Switch to ${goingDark ? "dark" : "light"} theme`}
-      className="grid size-7 shrink-0 place-items-center border border-rule text-soft transition-colors hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+      className="group grid size-7 shrink-0 place-items-center border border-rule text-soft transition-colors hover:border-ink hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
     >
-      {goingDark ? <Moon className="size-3.5" /> : <Sun className="size-3.5" />}
+      {goingDark ? (
+        <Moon className={iconClass} />
+      ) : (
+        <Sun className={iconClass} />
+      )}
     </button>
   );
 }

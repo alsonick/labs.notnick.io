@@ -317,9 +317,9 @@ export default function LabPicker({
               type="button"
               onClick={downloadPicked}
               disabled={!picked}
-              className="flex items-center gap-2 bg-ink px-6 py-3 text-[15px] font-semibold text-paper transition-colors hover:bg-marker hover:text-[var(--marker-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
+              className="group flex items-center gap-2 bg-ink px-6 py-3 text-[15px] font-semibold text-paper transition-colors hover:bg-marker hover:text-[var(--marker-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
             >
-              <Arrow className="size-4" />
+              <Arrow className="size-4 transition-transform group-hover:translate-y-0.5 group-focus-visible:translate-y-0.5" />
               Download it
             </button>
 
@@ -332,13 +332,13 @@ export default function LabPicker({
                   ? "Only one lab in range"
                   : "Pick a different lab"
               }
-              className="flex items-center gap-2 border border-ink px-5 py-3 text-[15px] font-semibold transition-colors hover:bg-marker focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
+              className="group flex items-center gap-2 border border-ink px-5 py-3 text-[15px] font-semibold transition-colors hover:bg-marker focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
             >
-              <Shuffle className="size-4" />
+              <Shuffle className="size-4 transition-transform group-hover:scale-125 group-focus-visible:scale-125" />
               Different one
             </button>
 
-            <div className="relative w-full sm:w-[20.5rem]">
+            <div className="group relative w-full sm:w-[20.5rem]">
               <select
                 value={picked?.file ?? ""}
                 onChange={(event) => selectLab(event.target.value)}
@@ -356,7 +356,7 @@ export default function LabPicker({
                   </option>
                 ))}
               </select>
-              <Chevron className="pointer-events-none absolute right-3 top-1/2 size-3.5 -translate-y-1/2 text-soft" />
+              <Chevron className="pointer-events-none absolute right-3 top-1/2 size-3.5 -translate-y-1/2 text-soft transition-transform group-hover:scale-125 group-focus-within:scale-125" />
             </div>
           </div>
 
@@ -429,9 +429,9 @@ export default function LabPicker({
                   download={lab.file}
                   title={`Download ${lab.title}`}
                   aria-label={`Download ${lab.title}`}
-                  className="relative -mr-1 grid size-8 shrink-0 place-items-center text-soft opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink group-hover:opacity-100 max-sm:opacity-100"
+                  className="group/dl relative -mr-1 grid size-8 shrink-0 place-items-center text-soft opacity-0 transition-opacity hover:text-ink focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink group-hover:opacity-100 max-sm:opacity-100"
                 >
-                  <Arrow className="size-3.5" />
+                  <Arrow className="size-3.5 transition-transform group-hover/dl:translate-y-0.5 group-focus-visible/dl:translate-y-0.5" />
                 </a>
               </li>
             );
@@ -457,17 +457,17 @@ export default function LabPicker({
             disabled={included.length < 2}
             aria-label="Pick a different lab"
             title="Pick a different lab"
-            className="grid size-10 shrink-0 place-items-center border border-ink transition-colors hover:bg-marker focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
+            className="group grid size-10 shrink-0 place-items-center border border-ink transition-colors hover:bg-marker focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
           >
-            <Shuffle className="size-4" />
+            <Shuffle className="size-4 transition-transform group-hover:scale-125 group-focus-visible:scale-125" />
           </button>
           <button
             type="button"
             onClick={downloadPicked}
             disabled={!picked}
-            className="flex shrink-0 items-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-marker hover:text-[var(--marker-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
+            className="group flex shrink-0 items-center gap-2 bg-ink px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-marker hover:text-[var(--marker-text)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink disabled:opacity-40"
           >
-            <Arrow className="size-3.5" />
+            <Arrow className="size-3.5 transition-transform group-hover:translate-y-0.5 group-focus-visible:translate-y-0.5" />
             Download
           </button>
         </div>

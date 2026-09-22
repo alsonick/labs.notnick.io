@@ -11,6 +11,8 @@
   --highlight: #30d158;
   /* Tail colour for the display heading's fade: ink drifting toward the green. */
   --ink-fade: #35704a;
+  /* Dot grid on the paper. Kept near the threshold of visible on purpose. */
+  --dot: rgb(22 21 15 / 0.07);
   color-scheme: light;
 }
 
@@ -26,6 +28,7 @@
   /* Translucent here, so ink-coloured text stays readable through it. */
   --highlight: rgb(48 209 88 / 0.28);
   --ink-fade: #7fc99a;
+  --dot: rgb(238 236 225 / 0.055);
   color-scheme: dark;
 }
 
@@ -40,10 +43,16 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* For the footer's back-to-top link. */
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--paper);
+  background-color: var(--paper);
+  /* A single dot per 22px cell. Painting from 1px in, and cutting to
+     transparent at the same stop, keeps the dot crisp rather than blurred. */
+  background-image: radial-gradient(circle at 1px 1px, var(--dot) 1px, transparent 0);
+  background-size: 22px 22px;
   color: var(--ink);
   font-feature-settings: "cv05" 1; /* Inter's single-storey l, easier on digits */
 }
@@ -60,6 +69,14 @@ body {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--soft);
+}
+
+/* Back-to-top link in the footer. .label sets its colour from an unlayered
+   rule, which outranks Tailwind's layered utilities, so a hover:text-ink class
+   would silently do nothing — the hover state has to be declared here. */
+.to-top:hover,
+.to-top:focus-visible {
+  color: var(--ink);
 }
 
 /* A barely-there warm fade across the display heading. */
@@ -123,6 +140,10 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
